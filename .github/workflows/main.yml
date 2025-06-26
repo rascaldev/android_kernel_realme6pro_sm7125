@@ -10,18 +10,9 @@ jobs:
     - name: Checkout kernel source
       uses: actions/checkout@v4
 
-    - name: Clean kernel source
-      run: make mrproper
-
     - name: Set up MemKernel as a module (M-OUT) with specified name
       run: |
         curl -LSs "https://raw.githubusercontent.com/Poko-Apps/MemKernel/main/kernel/setup.sh" | bash -s M rascal
-
-    - name: Enable MemKernel config
-      run: echo 'CONFIG_MEMKERNEL=m' >> arch/arm64/configs/atoll_defconfig
-
-    - name: Regenerate config
-      run: make ARCH=arm64 olddefconfig
 
     - name: Android kernel build
       uses: lemniskett/android-kernel-actions@master
@@ -44,4 +35,4 @@ jobs:
         name: moduleAndKernel
         path: |
           ${{ steps.build.outputs.outfile }}
-          ./out/drivers/memkernel/*.ko
+          ./out/drivers/memkernel/memkernel.ko
