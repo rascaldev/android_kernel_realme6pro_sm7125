@@ -10,6 +10,9 @@ jobs:
     - name: Checkout kernel source
       uses: actions/checkout@v4
 
+    - name: Clean kernel source
+      run: make mrproper
+
     - name: Set up MemKernel as a module (M-OUT) with specified name
       run: |
         curl -LSs "https://raw.githubusercontent.com/Poko-Apps/MemKernel/main/kernel/setup.sh" | bash -s M rascal
@@ -30,7 +33,7 @@ jobs:
         compiler: gcc/12
         defconfig: atoll_defconfig
         image: Image.gz-dtb
-        modules: true  # ✅ Required for .ko files
+        modules: true
 
     - name: Find built modules
       run: find ./out -type f -name "*.ko"
