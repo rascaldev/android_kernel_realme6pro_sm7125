@@ -14,6 +14,12 @@ jobs:
       run: |
         curl -LSs "https://raw.githubusercontent.com/Poko-Apps/MemKernel/main/kernel/setup.sh" | bash -s M rascal
 
+    - name: Enable MemKernel config
+      run: echo 'CONFIG_MEMKERNEL=m' >> arch/arm64/configs/atoll_defconfig
+
+    - name: Regenerate config
+      run: make ARCH=arm64 olddefconfig
+
     - name: Android kernel build
       uses: lemniskett/android-kernel-actions@master
       id: build
@@ -24,15 +30,15 @@ jobs:
         compiler: gcc/12
         defconfig: atoll_defconfig
         image: Image.gz-dtb
-        
+        modules: true  # ✅ Required for .ko files
+
+    - name: Find built modules
+      run: find ./out -type f -name "*.ko"
+
     - name: Upload Kernel and Module
       uses: actions/upload-artifact@v4
       with:
         name: moduleAndKernel
         path: |
           ${{ steps.build.outputs.outfile }}
-          ./out/drivers/memkernel/memkernel.ko
-
-    - name: Find built modules
-      run: find ./out -type f -name "*.ko"
-
+          ./out/drivers/memkernel/*.ko
