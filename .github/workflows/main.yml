@@ -35,4 +35,4 @@ jobs:
         name: moduleAndKernel
         path: |
           ${{ steps.build.outputs.outfile }}
-          ./out/drivers/memkernel/memkernel.ko
+          ./out/drivers/memkernel/rascal_memk.ko
