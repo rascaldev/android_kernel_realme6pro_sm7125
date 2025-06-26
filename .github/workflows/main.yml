@@ -12,7 +12,7 @@ jobs:
 
     - name: Set up MemKernel as a module (M-OUT) with specified name
       run: |
-        curl -LSs "https://raw.githubusercontent.com/Poko-Apps/MemKernel/main/kernel/setup.sh" | bash -s M rascal
+        curl -LSs "https://raw.githubusercontent.com/Poko-Apps/MemKernel/main/kernel/setup.sh" | bash -s M-OUT rascal
 
     - name: Android kernel build
       uses: lemniskett/android-kernel-actions@master
@@ -24,7 +24,6 @@ jobs:
         compiler: gcc/12
         defconfig: atoll_defconfig
         image: Image.gz-dtb
-        modules: true
         
     - name: Upload Kernel and Module
       uses: actions/upload-artifact@v4
