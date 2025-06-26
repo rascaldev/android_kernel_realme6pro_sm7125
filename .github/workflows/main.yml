@@ -10,12 +10,6 @@ jobs:
     - name: Checkout kernel source
       uses: actions/checkout@v4
 
-    - name: Add KernelSU (Fix Kconfig)
-      run: |
-        rm -rf drivers/kernelsu
-        git clone https://github.com/tiann/KernelSU.git drivers/kernelsu
-
-
     - name: Set up MemKernel as a module (M-OUT) with specified name
       run: |
         curl -LSs "https://raw.githubusercontent.com/Poko-Apps/MemKernel/main/kernel/setup.sh" | bash -s M rascal
