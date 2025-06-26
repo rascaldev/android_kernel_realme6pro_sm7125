@@ -24,6 +24,7 @@ jobs:
         compiler: gcc/12
         defconfig: atoll_defconfig
         image: Image.gz-dtb
+        modules: true
         
     - name: Upload Kernel and Module
       uses: actions/upload-artifact@v4
