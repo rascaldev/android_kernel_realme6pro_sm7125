@@ -24,6 +24,7 @@ jobs:
         compiler: gcc/11
         defconfig: atoll_defconfig
         image: Image.gz-dtb
+        build_args: KCFLAGS=-Wno-error
 
     - name: Upload Kernel and Module
       uses: actions/upload-artifact@v4
